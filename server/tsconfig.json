@@ -1,0 +1,24 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "module": "commonjs",
+    "target": "ES2020",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src",
+    "src/**/*.json"
+  ],
+  "exclude": [
+    "src/tests"
+  ],
+  "references": [
+    {
+      "path": "../common"
+    }
+  ]
+}

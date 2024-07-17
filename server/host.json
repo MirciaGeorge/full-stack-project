@@ -1,0 +1,26 @@
+{
+  "version": "2.0",
+  "functionTimeout": "00:10:00",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      }
+    }
+  },
+  "extensions": {
+    "http": {
+      "routePrefix": "",
+      "customHeaders": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credential": "true",
+        "Access-Control-Allow-Methods": "POST, GET, DELETE, PATCH, PUT"
+      }
+    }
+  },
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle",
+    "version": "[4.0.0, 5.0.0]"
+  }
+}

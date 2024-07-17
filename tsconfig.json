@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "strict": true,
+    "noUnusedLocals": false,
+    "noFallthroughCasesInSwitch": true,
+    "strictPropertyInitialization": false,
+    "paths": {
+      "common": [
+        "common/src/index.ts"
+      ]
+    }
+  }
+}

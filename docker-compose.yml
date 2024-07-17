@@ -1,0 +1,159 @@
+networks:
+  cnetwork:
+    external: false
+
+services:
+  nginx:
+    image: nginx
+    container_name: Nginx
+    stop_grace_period: 0s
+    restart: 'on-failure'
+    platform: linux/amd64
+    ports:
+      - 3000:80
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - client
+      - azurite
+    networks:
+      cnetwork:
+        aliases:
+          - nginx
+
+  server:
+    build:
+      dockerfile: ./docker/Dockerfile.dev
+      context: .
+    container_name: Server
+    stop_grace_period: 0s
+    restart: 'no'
+    platform: linux/amd64
+    command: npm run start --prefix app/server
+    tty: true
+    ports:
+      - 7070:7070
+      - 9229:9229
+    volumes:
+      - .:/app
+      - /app/node_modules/
+      - /app/server/node_modules/
+      - /app/common/node_modules/
+    depends_on:
+      - azurite
+      - mongodb
+    networks:
+      cnetwork:
+        aliases:
+          - server
+
+  client:
+    build:
+      dockerfile: ./docker/Dockerfile.dev
+      context: .
+    container_name: Client
+    stop_grace_period: 0s
+    restart: 'no'
+    platform: linux/amd64
+    command: npm run dev --prefix app/client
+    tty: true
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/app
+      - /app/node_modules/
+      - /app/client/node_modules/
+      - /app/common/node_modules/
+    networks:
+      cnetwork:
+        aliases:
+          - client
+
+  keycloak:
+    image: keycloak/keycloak:24.0
+    container_name: Keycloak
+    stop_grace_period: 0s
+    restart: no
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/keycloak
+      KC_DB_USERNAME: user
+      KC_DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KC_HTTP_ENABLED: true
+      KC_HTTP_PORT: 9091
+      KC_HOSTNAME_URL: http://localhost:9091
+      KC_HOSTNAME_STRICT: false
+    command:
+      - start-dev
+    ports:
+      - 9091:9091
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      cnetwork:
+        aliases:
+          - keycloak
+
+  postgres:
+    image: postgres:14.9
+    container_name: Postgres
+    stop_grace_period: 0s
+    restart: 'no'
+    volumes:
+      - ./db/postgres/data:/var/lib/postgresql/data
+      - ./db/scripts/init-keycloak.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+    - 5432:5432
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U user -d keycloak' ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      cnetwork:
+        aliases:
+          - postgres
+
+  mongodb:
+    image: mongo:6-jammy
+    container_name: Mongo
+    stop_grace_period: 0s
+    restart: 'no'
+    command: [ --auth ]
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=app
+    ports:
+      - 27017:27017
+    volumes:
+      - ./db/mongodb/data:/data/db
+    networks:
+      cnetwork:
+        aliases:
+          - mongodb
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: Azurite
+    stop_grace_period: 0s
+    restart: 'no'
+    platform: linux/amd64
+    command: 'azurite-blob --blobHost 0.0.0.0 -l /data'
+    environment:
+      - AZURITE_ACCOUNTS=devstoreaccount1:Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;
+    ports:
+      - 10000:10000
+    volumes:
+      - ./azurite/storage:/data
+    networks:
+      cnetwork:
+        aliases:
+          - azurite

@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "build/functions/**/*.js",
+  "scripts": {
+    "test": "jest",
+    "clean": "rimraf build && rimraf tsconfig.tsbuildinfo",
+    "build": "npm run clean && tsc --build && node ./esbuild.config.js",
+    "start": "npm run build && concurrently -r \"tsc -b --watch --preserveWatchOutput\" \"func start --javascript\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.1.0",
+    "@azure/storage-blob": "^12.17.0",
+    "@sentry/integrations": "^7.114.0",
+    "@sentry/node": "^7.114.0",
+    "@sentry/profiling-node": "^7.114.0",
+    "mongoose": "^8.4.4",
+    "axios": "^1.6.7",
+    "joi": "^17.12.1"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x"
+  }
+}

@@ -1,0 +1,52 @@
+{
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "error-page": {
+        "title": "Oh no!",
+        "default-error": {
+            "title": "Something unexpected happened",
+            "message": "Please try again later"
+        }
+    },
+    "page-not-found": "Page not found",
+    "user": {
+        "actions": {
+            "sign-out": "Sign Out"
+        }
+    },
+    "to-do-list": {
+        "title": "To do list",
+        "add-action": "Add new item"
+    },
+    "sidebar": {
+        "tooltip": "Toggle sidebar",
+        "to-do-list": "To Do List",
+        "user-profile": "User Profile"
+    },
+    "user-profile": {
+        "title": "User profile",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "username": "Username",
+        "email": "Email",
+        "profile-image": "Profile Image",
+        "upload-profile-image-message": "Drop or select a file"
+    },
+    "notifications": {
+        "save-item": "{{name}} saved",
+        "delete-item": "{{name}} removed",
+        "validation": {
+            "error": {
+                "title": "Some fields are invalid",
+                "message": "Please ckeck the fields again"
+            }
+        }
+    },
+    "add-to-do-list-item-dialog": {
+        "title": "Add item",
+        "fields": {
+            "name": "Name"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "languageWorkers__node__arguments": "--inspect=0.0.0.0:9229",
+        "FUNCTIONS_WORKER_RUNTIME": "node",
+        "AzureWebJobsFeatureFlags": "EnableWorkerIndexing",
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://azurite:10000",
+
+        "MONGODB": "mongodb://user:password@mongodb:27017/app?retryWrites=true&w=majority&authSource=admin",
+
+        "KEYCLOAK_URL": "http://keycloak:9091",
+        "KEYCLOAK_REALM": "app",
+        "KEYCLOAK_CLIENT_ID": "app-server-dev",
+        "KEYCLOAK_CLIENT_SECRET": "s5LFc7yMF8txhhCTOtoaACzeAGzQgL2j",
+
+        "SENTRY_ENVIRONMENT": "",
+        "SENTRY_SERVER_DSN": "",
+
+        "AZURE_STORAGE": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;"
+    },
+    "Host": {
+        "LocalHttpPort": 7070,
+        "CORS": "*",
+        "CORSCredentials": false
+    }
+}

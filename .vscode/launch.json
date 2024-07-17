@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "debug-client",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/client"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "debug-common",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/common"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "debug-server",
+      "restart": true,
+      "remoteRoot": "/app",
+      "port": 9229,
+      "sourceMapPathOverrides": {
+        "/app/*": "${workspaceRoot}/*"
+      }
+    }
+  ]
+}
