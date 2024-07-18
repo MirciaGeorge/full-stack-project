@@ -1,4 +1,4 @@
-import { KeycloakTokenPayload } from '../common/build/auth-types'
+import { KeycloakTokenPayload } from '../common/build/auth/auth-types'
 import { Keycloak } from './src/config'
 
 const ignoredJestWarnings = [
