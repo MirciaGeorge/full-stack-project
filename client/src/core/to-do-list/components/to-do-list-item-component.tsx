@@ -22,6 +22,7 @@ const styles = createSx({
     content: (isFinished: boolean) => ({
         position: 'relative',
         margin: '0px 5px',
+        width: '50%',
         ...(isFinished && {
             '::after': {
                 content: '""',
@@ -36,7 +37,7 @@ const styles = createSx({
         })
     }),
     actions: {
-        width: '100%',
+        width: '50%',
         display: 'flex',
         justifyContent: 'flex-end',
         gap: '10px'
